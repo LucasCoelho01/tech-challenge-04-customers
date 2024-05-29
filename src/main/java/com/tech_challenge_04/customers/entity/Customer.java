@@ -26,4 +26,10 @@ public class Customer {
         this.cpf = createCustomerDto.cpf();
         this.email = createCustomerDto.email();
     }
+
+    public void updateCustomer(CreateCustomerDto createCustomerDto) {
+        this.username = createCustomerDto.username();
+        this.cpf = createCustomerDto.cpf();
+        this.email = createCustomerDto.email();
+    }
 }
