@@ -3,7 +3,6 @@ package com.tech_challenge_04.customers.entity;
 import com.tech_challenge_04.customers.entity.dtos.CreateCustomerDto;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Generated;
 
 import java.util.UUID;
 
