@@ -3,7 +3,6 @@ package com.tech_challenge_04.customers.entity;
 import com.tech_challenge_04.customers.entity.dtos.CreateCustomerDto;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Generated;
 
 import java.util.UUID;
 
@@ -22,6 +21,12 @@ public class Customer {
     public Customer() {}
 
     public Customer(CreateCustomerDto createCustomerDto) {
+        this.username = createCustomerDto.username();
+        this.cpf = createCustomerDto.cpf();
+        this.email = createCustomerDto.email();
+    }
+
+    public void updateCustomer(CreateCustomerDto createCustomerDto) {
         this.username = createCustomerDto.username();
         this.cpf = createCustomerDto.cpf();
         this.email = createCustomerDto.email();
