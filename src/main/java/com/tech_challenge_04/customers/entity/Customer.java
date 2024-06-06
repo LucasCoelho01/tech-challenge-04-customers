@@ -1,6 +1,6 @@
 package com.tech_challenge_04.customers.entity;
 
-import com.tech_challenge_04.customers.entity.dtos.CreateCustomerDto;
+import com.tech_challenge_04.customers.entity.dtos.CustomerDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,15 +20,15 @@ public class Customer {
 
     public Customer() {}
 
-    public Customer(CreateCustomerDto createCustomerDto) {
-        this.username = createCustomerDto.username();
-        this.cpf = createCustomerDto.cpf();
-        this.email = createCustomerDto.email();
+    public Customer(CustomerDto customerDto) {
+        this.username = customerDto.username();
+        this.cpf = customerDto.cpf();
+        this.email = customerDto.email();
     }
 
-    public void updateCustomer(CreateCustomerDto createCustomerDto) {
-        this.username = createCustomerDto.username();
-        this.cpf = createCustomerDto.cpf();
-        this.email = createCustomerDto.email();
+    public void updateCustomer(CustomerDto customerDto) {
+        this.username = customerDto.username();
+        this.cpf = customerDto.cpf();
+        this.email = customerDto.email();
     }
 }

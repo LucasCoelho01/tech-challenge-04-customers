@@ -1,7 +1,7 @@
 package com.tech_challenge_04.customers.service;
 
 import com.tech_challenge_04.customers.entity.Customer;
-import com.tech_challenge_04.customers.entity.dtos.CreateCustomerDto;
+import com.tech_challenge_04.customers.entity.dtos.CustomerDto;
 import com.tech_challenge_04.customers.repository.CustomerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public Customer createCustomer(CreateCustomerDto createCustomerDto) {
-        return customerRepository.save(new Customer(createCustomerDto));
+    public Customer createCustomer(CustomerDto customerDto) {
+        return customerRepository.save(new Customer(customerDto));
     }
 
     public List<Customer> getAllCustomers() {
@@ -28,14 +28,14 @@ public class CustomerService {
         return customerRepository.findByCpf(cpf);
     }
 
-    public Customer updateCustomer(String cpf, CreateCustomerDto createCustomerDto) {
+    public Customer updateCustomer(String cpf, CustomerDto customerDto) {
         var customer = customerRepository.findByCpf(cpf);
 
         if (Objects.isNull(customer)) {
             throw new EntityNotFoundException();
         }
 
-        customer.updateCustomer(createCustomerDto);
+        customer.updateCustomer(customerDto);
 
         return customerRepository.save(customer);
     }

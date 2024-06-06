@@ -1,7 +1,7 @@
 package com.tech_challenge_04.customers.service;
 
 import com.tech_challenge_04.customers.entity.Customer;
-import com.tech_challenge_04.customers.entity.dtos.CreateCustomerDto;
+import com.tech_challenge_04.customers.entity.dtos.CustomerDto;
 import com.tech_challenge_04.customers.repository.CustomerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,20 +25,20 @@ public class CustomerServiceTest {
     @InjectMocks
     private CustomerService customerService;
 
-    private CreateCustomerDto createCustomerDto;
+    private CustomerDto customerDto;
     private Customer customer;
 
     @BeforeEach
     void setUp() {
-        createCustomerDto = new CreateCustomerDto("Lucas", "12345678910", "lucas@email.com");
-        customer = new Customer(createCustomerDto);
+        customerDto = new CustomerDto("Lucas", "12345678910", "lucas@email.com");
+        customer = new Customer(customerDto);
     }
 
     @Test
     void createCustomer_success() {
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
-        Customer createdCustomer = customerService.createCustomer(createCustomerDto);
+        Customer createdCustomer = customerService.createCustomer(customerDto);
 
         assertNotNull(createdCustomer);
         verify(customerRepository, times(1)).save(any(Customer.class));
@@ -73,7 +73,7 @@ public class CustomerServiceTest {
         when(customerRepository.findByCpf(cpf)).thenReturn(customer);
         when(customerRepository.save(customer)).thenReturn(customer);
 
-        Customer updatedCustomer = customerService.updateCustomer(cpf, createCustomerDto);
+        Customer updatedCustomer = customerService.updateCustomer(cpf, customerDto);
 
         assertNotNull(updatedCustomer);
         verify(customerRepository, times(1)).findByCpf(cpf);
@@ -85,7 +85,7 @@ public class CustomerServiceTest {
         String cpf = "123456789";
         when(customerRepository.findByCpf(cpf)).thenReturn(null);
 
-        assertThrows(EntityNotFoundException.class, () -> customerService.updateCustomer(cpf, createCustomerDto));
+        assertThrows(EntityNotFoundException.class, () -> customerService.updateCustomer(cpf, customerDto));
 
         verify(customerRepository, times(1)).findByCpf(cpf);
         verify(customerRepository, never()).save(any(Customer.class));
