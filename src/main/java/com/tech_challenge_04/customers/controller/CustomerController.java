@@ -1,7 +1,7 @@
 package com.tech_challenge_04.customers.controller;
 
 import com.tech_challenge_04.customers.entity.Customer;
-import com.tech_challenge_04.customers.entity.dtos.CreateCustomerDto;
+import com.tech_challenge_04.customers.entity.dtos.CustomerDto;
 import com.tech_challenge_04.customers.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class CustomerController {
 
     @PostMapping
     @Transactional
-    ResponseEntity<Customer> createUser(@RequestBody @Valid CreateCustomerDto createCustomerDto) {
-        return new ResponseEntity<>(customerService.createCustomer(createCustomerDto), HttpStatus.CREATED);
+    ResponseEntity<Customer> createUser(@RequestBody @Valid CustomerDto customerDto) {
+        return new ResponseEntity<>(customerService.createCustomer(customerDto), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -37,8 +37,8 @@ public class CustomerController {
 
     @PutMapping("/{cpf}")
     @Transactional
-    ResponseEntity<Customer> updateCustomer(@PathVariable String cpf, @RequestBody @Valid CreateCustomerDto createCustomerDto) {
-        return new ResponseEntity<>(customerService.updateCustomer(cpf, createCustomerDto), HttpStatus.OK);
+    ResponseEntity<Customer> updateCustomer(@PathVariable String cpf, @RequestBody @Valid CustomerDto customerDto) {
+        return new ResponseEntity<>(customerService.updateCustomer(cpf, customerDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{cpf}")
