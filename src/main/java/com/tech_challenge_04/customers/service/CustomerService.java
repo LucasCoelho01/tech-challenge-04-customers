@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,7 +22,16 @@ public class CustomerService {
     }
 
     public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
+        var allCustomers = customerRepository.findAll();
+        List<Customer> activeCustomers = new ArrayList<>();
+
+        allCustomers.forEach(customer -> {
+            if (customer.isActive()) {
+                activeCustomers.add(customer);
+            }
+        });
+
+        return activeCustomers;
     }
 
     public Customer findByCpf(String cpf) {
@@ -48,5 +58,17 @@ public class CustomerService {
         }
 
         customerRepository.delete(customer);
+    }
+
+    public void deleteCustomerLogically(String cpf) {
+        var customer = customerRepository.findByCpf(cpf);
+
+        if (Objects.isNull(customer)) {
+            throw new EntityNotFoundException();
+        }
+
+        customer.setActive(false);
+
+        customerRepository.save(customer);
     }
 }

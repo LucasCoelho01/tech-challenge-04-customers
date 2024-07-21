@@ -17,6 +17,7 @@ public class Customer {
     private String username;
     private String cpf;
     private String email;
+    private boolean active = true;
 
     public Customer() {}
 

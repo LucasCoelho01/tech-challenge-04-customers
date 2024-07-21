@@ -47,4 +47,11 @@ public class CustomerController {
         customerService.deleteCustomer(cpf);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @PutMapping("/delete/{cpf}")
+    @Transactional
+    ResponseEntity<String> deleteCustomerLogically(@PathVariable String cpf) {
+        customerService.deleteCustomerLogically(cpf);
+        return new ResponseEntity<>("Customer deleted", HttpStatus.OK);
+    }
 }
