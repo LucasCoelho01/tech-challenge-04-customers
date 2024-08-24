@@ -25,21 +25,20 @@ public class CustomerServiceSaga {
 
     @RabbitListener(queues = RabbitMQConfig.QUEUE_CUSTOMER_REQUEST)
     public void handleCustomerMessage(String jsonRequest) {
+        System.out.println("Recebido queue QUEUE_CUSTOMER_REQUEST");
         Gson gson = new Gson();
         CustomerResponseDto requestDto = gson.fromJson(jsonRequest, CustomerResponseDto.class);
 
         System.out.println("CPF recebido: " + requestDto.getCpf());
 
-        // Find customer using the CPF received
         Customer customer = customerRepository.findByCpf(requestDto.getCpf());
 
         CustomerResponseDto customerResponseDto = new CustomerResponseDto(customer, requestDto.getProductNames());
         customerResponseDto.setOrderId(requestDto.getOrderId());
 
-        // Convert Customer object to json(String)
         String json = gson.toJson(customerResponseDto);
 
-        // Send the Customer
         rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE_CUSTOMER_RESPONSE, json);
+        System.out.println("Enviado queue QUEUE_CUSTOMER_RESPONSE");
     }
 }

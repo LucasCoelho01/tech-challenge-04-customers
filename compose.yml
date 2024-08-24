@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+  api:
+    image: lucasgoleiro/techchallenge-customers-api
+    ports:
+      - 8081:8081
